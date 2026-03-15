@@ -4,7 +4,7 @@
 
 The **complete reference for PowerShell commands, scripting, and automation** — from first commands to publishing your own modules on the PowerShell Gallery.
 
-## 📖 Live Documentation
+## Live Documentation
 
 > **[ruthie-frc.github.io/Powershell-Commands](https://ruthie-frc.github.io/Powershell-Commands/)**
 
