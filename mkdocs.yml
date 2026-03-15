@@ -11,21 +11,22 @@ theme:
   name: material
   palette:
     - scheme: default
-      primary: blue
-      accent: cyan
+      primary: indigo
+      accent: light-blue
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
     - scheme: slate
-      primary: blue
-      accent: cyan
+      primary: indigo
+      accent: light-blue
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
   font:
-    text: Roboto
-    code: Roboto Mono
+    text: Inter
+    code: JetBrains Mono
   icon:
+    logo: material/console
     repo: fontawesome/brands/github
   features:
     - navigation.instant

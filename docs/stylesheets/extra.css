@@ -1,38 +1,267 @@
-/* ── Image Sizing ──────────────────────────────────────────────────────────
-   Prevent images from rendering at their native (often giant) resolution.
-   Images scale down to fit the content column but never stretch beyond it.
-   ──────────────────────────────────────────────────────────────────────── */
-.md-typeset img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: 1.25rem auto;
-  border-radius: 6px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+/* ═══════════════════════════════════════════════════════════════════════════
+   PowerShell Encyclopedia — Consistent Theme & Formatting
+   ═══════════════════════════════════════════════════════════════════════════
+
+   Table of contents
+   1. Design tokens
+   2. Page margins
+   3. Body / prose
+   4. Heading hierarchy
+   5. Horizontal rules
+   6. Images
+   7. Inline code & code blocks
+   8. Tables
+   9. Admonitions & details
+  10. Keyboard shortcuts
+  11. Links
+  12. Navigation
+  13. Grid cards (home page)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+
+/* ── 1. Design Tokens ────────────────────────────────────────────────────────
+   Central custom properties used throughout the rest of this stylesheet so
+   every visual decision is consistent and easy to change in one place.
+   ──────────────────────────────────────────────────────────────────────────── */
+:root {
+  --ps-radius:     6px;   /* rounded corners — cards, tables, code */
+  --ps-radius-sm:  3px;   /* small elements — inline code, kbd */
+  --ps-shadow:     0 2px 8px rgba(0, 0, 0, 0.10);
+  --ps-shadow-sm:  0 1px 4px rgba(0, 0, 0, 0.08);
+  --ps-transition: 0.15s ease;
+  --ps-h2-bar:     4px;   /* width of the H2 left accent bar */
 }
 
-/* Allow inline icons/emoji to remain inline and unstyled */
-.md-typeset .twemoji img,
-.md-typeset .emojione img {
-  display: inline;
-  margin: 0;
-  box-shadow: none;
-  border-radius: 0;
-}
 
-/* ── Page Margins ──────────────────────────────────────────────────────────
-   Add comfortable horizontal padding to the content column so text and
-   content never run flush against the edge of the viewport.
-   ──────────────────────────────────────────────────────────────────────── */
+/* ── 2. Page Margins ─────────────────────────────────────────────────────────
+   Add comfortable horizontal padding so content never runs flush against the
+   edge of the viewport.
+   ──────────────────────────────────────────────────────────────────────────── */
 .md-content__inner {
-  padding-left: 1.5rem;
+  padding-left:  1.5rem;
   padding-right: 1.5rem;
 }
 
 @media screen and (min-width: 76.25em) {
-  /* On wide screens give the inner content a bit more breathing room */
   .md-content__inner {
-    padding-left: 2.5rem;
+    padding-left:  2.5rem;
     padding-right: 2.5rem;
   }
+}
+
+/* Tighten the top gap above the first H1 on every page */
+.md-content__inner > h1:first-child {
+  margin-top: 0.5rem;
+}
+
+
+/* ── 3. Body / Prose ─────────────────────────────────────────────────────────
+   Slightly looser line-height improves readability on technical content.
+   ──────────────────────────────────────────────────────────────────────────── */
+.md-typeset {
+  line-height:  1.75;
+  font-size:    0.9rem;
+}
+
+
+/* ── 4. Heading Hierarchy ────────────────────────────────────────────────────
+   Each heading level has a distinct, progressive visual treatment so readers
+   can instantly orient themselves in the content.
+
+   H1 — page title  : coloured underline rule
+   H2 — major section: left accent bar + top spacing
+   H3 — sub-section  : bold, slightly muted
+   H4 — minor heading : small-caps label style
+   ──────────────────────────────────────────────────────────────────────────── */
+.md-typeset h1 {
+  font-size:      2rem;
+  font-weight:    700;
+  letter-spacing: -0.025em;
+  padding-bottom: 0.4em;
+  border-bottom:  3px solid var(--md-primary-fg-color);
+  margin-bottom:  1.5rem;
+}
+
+.md-typeset h2 {
+  font-size:    1.35rem;
+  font-weight:  600;
+  margin-top:   2.25rem;
+  padding-left: 0.65rem;
+  border-left:  var(--ps-h2-bar) solid var(--md-primary-fg-color);
+}
+
+.md-typeset h3 {
+  font-size:   1.1rem;
+  font-weight: 600;
+  margin-top:  1.75rem;
+}
+
+.md-typeset h4 {
+  font-size:      0.8rem;
+  font-weight:    700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  margin-top:     1.25rem;
+  color:          var(--md-default-fg-color--light);
+}
+
+
+/* ── 5. Horizontal Rules ─────────────────────────────────────────────────────
+   Consistent weight and spacing for the --- section dividers used in docs.
+   ──────────────────────────────────────────────────────────────────────────── */
+.md-typeset hr {
+  border:     none;
+  border-top: 1px solid var(--md-default-fg-color--lighter);
+  margin:     2rem 0;
+}
+
+
+/* ── 6. Images ───────────────────────────────────────────────────────────────
+   Images constrained to the content column width, centred, and subtly styled.
+   Inline emoji/icons are excluded and remain unstyled.
+   ──────────────────────────────────────────────────────────────────────────── */
+.md-typeset img {
+  max-width:     100%;
+  height:        auto;
+  display:       block;
+  margin:        1.25rem auto;
+  border-radius: var(--ps-radius);
+  box-shadow:    var(--ps-shadow);
+}
+
+/* Emoji / icon images stay inline */
+.md-typeset .twemoji img,
+.md-typeset .emojione img {
+  display:       inline;
+  margin:        0;
+  box-shadow:    none;
+  border-radius: 0;
+}
+
+
+/* ── 7. Inline Code & Code Blocks ────────────────────────────────────────────
+   Consistent corner radius and font size across all code elements.
+   ──────────────────────────────────────────────────────────────────────────── */
+/* Inline code pill */
+.md-typeset :not(pre) > code {
+  border-radius: var(--ps-radius-sm);
+  font-size:     0.84em;
+  padding:       0.1em 0.4em;
+}
+
+/* Fenced / block code */
+.md-typeset pre {
+  border-radius: var(--ps-radius);
+}
+
+.md-typeset pre > code {
+  font-size: 0.85rem;
+}
+
+
+/* ── 8. Tables ───────────────────────────────────────────────────────────────
+   Primary-colour header row, zebra-striped body, rounded outer border.
+   ──────────────────────────────────────────────────────────────────────────── */
+.md-typeset table:not([class]) {
+  border-collapse: separate;
+  border-spacing:  0;
+  border:          1px solid var(--md-default-fg-color--lighter);
+  border-radius:   var(--ps-radius);
+  font-size:       0.875rem;
+  overflow:        hidden;
+  width:           100%;
+  box-shadow:      var(--ps-shadow-sm);
+}
+
+.md-typeset table:not([class]) th {
+  background-color: var(--md-primary-fg-color);
+  color:            var(--md-primary-bg-color);
+  font-weight:      600;
+  padding:          0.6rem 1rem;
+  text-align:       left;
+  vertical-align:   middle;
+  white-space:      nowrap;
+}
+
+.md-typeset table:not([class]) td {
+  padding:        0.5rem 1rem;
+  vertical-align: top;
+  border-top:     1px solid var(--md-default-fg-color--lighter);
+}
+
+/* Zebra stripe on even rows */
+.md-typeset table:not([class]) tbody tr:nth-child(even) > td {
+  background-color: var(--md-code-bg-color);
+}
+
+
+/* ── 9. Admonitions & Details ────────────────────────────────────────────────
+   Rounded corners and a subtle shadow unify all call-out boxes.
+   ──────────────────────────────────────────────────────────────────────────── */
+.md-typeset .admonition,
+.md-typeset details {
+  border-radius: var(--ps-radius);
+  font-size:     0.9rem;
+  box-shadow:    var(--ps-shadow-sm);
+}
+
+.md-typeset .admonition-title,
+.md-typeset summary {
+  border-radius: var(--ps-radius) var(--ps-radius) 0 0;
+}
+
+
+/* ── 10. Keyboard Shortcuts ──────────────────────────────────────────────────
+   Legible key-cap appearance with a consistent inset shadow.
+   ──────────────────────────────────────────────────────────────────────────── */
+.md-typeset kbd {
+  border-radius: var(--ps-radius-sm);
+  font-size:     0.78em;
+  padding:       0.15em 0.45em;
+  box-shadow:
+    0 1px 0 rgba(0, 0, 0, 0.30),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.12);
+}
+
+
+/* ── 11. Links ───────────────────────────────────────────────────────────────
+   Animated underline for body-copy links so they are clearly interactive
+   but not visually noisy when at rest.
+   ──────────────────────────────────────────────────────────────────────────── */
+.md-typeset a:not(.md-button):not(.headerlink):not([class]) {
+  text-decoration: none;
+  border-bottom:   1px solid transparent;
+  transition:
+    border-color var(--ps-transition),
+    color        var(--ps-transition);
+}
+
+.md-typeset a:not(.md-button):not(.headerlink):not([class]):hover {
+  border-bottom-color: var(--md-accent-fg-color);
+}
+
+
+/* ── 12. Navigation ──────────────────────────────────────────────────────────
+   Bold weight on the active link so the current location is obvious.
+   ──────────────────────────────────────────────────────────────────────────── */
+.md-nav__item--active > .md-nav__link {
+  font-weight: 600;
+}
+
+
+/* ── 13. Grid Cards (home page) ──────────────────────────────────────────────
+   Ensure the home-page feature cards share the same radius and shadow as
+   every other elevated surface in the design.
+   ──────────────────────────────────────────────────────────────────────────── */
+.md-typeset .grid.cards > ul > li,
+.md-typeset .grid.cards > :is(ul, ol) > li {
+  border-radius: var(--ps-radius);
+  box-shadow:    var(--ps-shadow);
+  transition:    box-shadow var(--ps-transition), transform var(--ps-transition);
+}
+
+.md-typeset .grid.cards > ul > li:hover,
+.md-typeset .grid.cards > :is(ul, ol) > li:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.14);
+  transform:  translateY(-2px);
 }
