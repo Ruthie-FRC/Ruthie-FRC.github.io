@@ -2,9 +2,9 @@ site_name: PowerShell Command Encyclopedia
 site_description: >-
   The complete reference for PowerShell commands, scripting, and custom command
   authoring — from beginner to advanced.
-site_url: https://ruthie-frc.github.io/
-repo_url: https://github.com/Ruthie-FRC/Ruthie-FRC.github.io
-repo_name: Ruthie-FRC/Ruthie-FRC.github.io
+site_url: https://ruthie-frc.github.io/Powershell-Commands/
+repo_url: https://github.com/Ruthie-FRC/Powershell-Commands
+repo_name: Ruthie-FRC/Powershell-Commands
 edit_uri: edit/main/docs/
 
 theme:
@@ -70,7 +70,7 @@ markdown_extensions:
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/Ruthie-FRC/Ruthie-FRC.github.io
+      link: https://github.com/Ruthie-FRC/Powershell-Commands
   analytics:
     feedback:
       title: Was this page helpful?
