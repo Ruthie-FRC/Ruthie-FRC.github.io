@@ -1,33 +1,121 @@
 site_name: PowerShell Command Encyclopedia
-site_description: Searchable documentation for PowerShell commands
-repo_url: https://github.com/YOURNAME/powershell-encyclopedia
+site_description: >-
+  The complete reference for PowerShell commands, scripting, and custom command
+  authoring — from beginner to advanced.
+site_url: https://ruthie-frc.github.io/Powershell-Commands/
+repo_url: https://github.com/Ruthie-FRC/Powershell-Commands
+repo_name: Ruthie-FRC/Powershell-Commands
+edit_uri: edit/main/docs/
 
 theme:
   name: material
+  palette:
+    - scheme: default
+      primary: blue
+      accent: cyan
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: blue
+      accent: cyan
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  font:
+    text: Roboto
+    code: Roboto Mono
+  icon:
+    repo: fontawesome/brands/github
   features:
     - navigation.instant
+    - navigation.tracking
     - navigation.sections
     - navigation.expand
+    - navigation.tabs
+    - navigation.top
     - search.highlight
+    - search.suggest
+    - search.share
     - content.code.copy
+    - content.code.annotate
+    - toc.follow
 
 plugins:
-  - search
-  - awesome-pages
+  - search:
+      separator: '[\s\-,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
 
 markdown_extensions:
   - admonition
-  - codehilite
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - attr_list
+  - md_in_html
+  - tables
   - toc:
       permalink: true
+      title: On this page
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/Ruthie-FRC/Powershell-Commands
+  analytics:
+    feedback:
+      title: Was this page helpful?
+      ratings:
+        - icon: material/emoticon-happy-outline
+          name: This page was helpful
+          data: 1
+          note: Thanks for your feedback!
+        - icon: material/emoticon-sad-outline
+          name: This page could be improved
+          data: 0
+          note: Thanks for your feedback!
 
 nav:
   - Home: index.md
+  - Getting Started:
+      - What is PowerShell?: getting-started/what-is-powershell.md
+      - Installation: getting-started/installation.md
+      - Your First Commands: getting-started/first-commands.md
+      - The Pipeline: getting-started/the-pipeline.md
+  - Core Concepts:
+      - Variables & Scope: concepts/variables.md
+      - Data Types: concepts/data-types.md
+      - Operators: concepts/operators.md
+      - Control Flow: concepts/control-flow.md
+      - Functions: concepts/functions.md
+      - Error Handling: concepts/error-handling.md
+      - Modules: concepts/modules.md
+      - Providers & Drives: concepts/providers.md
+      - Profiles: concepts/profiles.md
   - Guides:
-      - Filesystem: guides/filesystem.md
+      - File System: guides/filesystem.md
       - Processes: guides/processes.md
       - Networking: guides/networking.md
-      - System: guides/system.md
-      - Pipelines: guides/pipelines.md
-  - Command Reference:
-      - command-reference.md
+      - System Information: guides/system.md
+      - Pipelines & Filtering: guides/pipelines.md
+      - Users & Security: guides/users-and-security.md
+      - Registry: guides/registry.md
+      - Scheduled Tasks: guides/scheduled-tasks.md
+      - Remote Management: guides/remote-management.md
+  - Writing Your Own Commands:
+      - Creating Functions: authoring/functions.md
+      - Advanced Functions: authoring/advanced-functions.md
+      - Script Modules: authoring/script-modules.md
+      - Comment-Based Help: authoring/comment-based-help.md
+      - Publishing to PSGallery: authoring/psgallery.md
+  - Command Reference: command-reference.md
+  - Examples & Recipes: examples.md

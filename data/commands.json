@@ -13,5 +13,1035 @@
       { "description": "List only directories", "code": "Get-ChildItem -Directory" },
       { "description": "Show just names", "code": "Get-ChildItem -Name" }
     ]
+  },
+  {
+    "name": "Set-Location",
+    "category": "filesystem",
+    "synopsis": "Sets the current working location to a specified location.",
+    "syntax": "Set-Location [[-Path] <String>] [-PassThru]",
+    "description": "Changes the current working directory or registry hive. Equivalent to the 'cd' command in most shells.",
+    "aliases": ["cd", "chdir", "sl"],
+    "keywords": ["change", "directory", "navigate", "cd"],
+    "examples": [
+      { "description": "Navigate to C:\\Users", "code": "Set-Location C:\\Users" },
+      { "description": "Go up one level", "code": "Set-Location .." },
+      { "description": "Go to home directory", "code": "Set-Location ~" },
+      { "description": "Navigate to registry", "code": "Set-Location HKLM:\\Software" }
+    ]
+  },
+  {
+    "name": "Get-Location",
+    "category": "filesystem",
+    "synopsis": "Gets information about the current working location or a location stack.",
+    "syntax": "Get-Location [-PSProvider <String[]>] [-PSDrive <String[]>]",
+    "description": "Returns the path of the current working directory. The output object can be stored and used in scripts.",
+    "aliases": ["gl", "pwd"],
+    "keywords": ["current", "directory", "path", "pwd", "where"],
+    "examples": [
+      { "description": "Print current directory", "code": "Get-Location" },
+      { "description": "Store current path in a variable", "code": "$here = Get-Location" }
+    ]
+  },
+  {
+    "name": "New-Item",
+    "category": "filesystem",
+    "synopsis": "Creates a new item such as a file, directory, or symbolic link.",
+    "syntax": "New-Item [-Path] <String[]> [-ItemType <String>] [-Value <Object>] [-Force]",
+    "description": "Creates files, directories, symbolic links, registry keys/values, and other items depending on the active provider.",
+    "aliases": ["ni"],
+    "keywords": ["create", "new", "file", "folder", "directory", "mkdir"],
+    "examples": [
+      { "description": "Create a new file", "code": "New-Item -Path .\\notes.txt -ItemType File" },
+      { "description": "Create a directory", "code": "New-Item -Path .\\MyFolder -ItemType Directory" },
+      { "description": "Create a file with content", "code": "New-Item -Path .\\hello.txt -ItemType File -Value 'Hello, World!'" },
+      { "description": "Create a symbolic link", "code": "New-Item -ItemType SymbolicLink -Path .\\link.txt -Target .\\original.txt" }
+    ]
+  },
+  {
+    "name": "Remove-Item",
+    "category": "filesystem",
+    "synopsis": "Deletes the specified items.",
+    "syntax": "Remove-Item [-Path] <String[]> [-Recurse] [-Force] [-Filter <String>] [-WhatIf]",
+    "description": "Permanently deletes files, directories, registry keys, and other items. Use -Recurse to delete directories and their contents, and -Force to remove read-only items.",
+    "aliases": ["ri", "rm", "rmdir", "del", "erase", "rd"],
+    "keywords": ["delete", "remove", "rm", "erase", "unlink"],
+    "examples": [
+      { "description": "Delete a file", "code": "Remove-Item .\\old.txt" },
+      { "description": "Delete a folder and all contents", "code": "Remove-Item .\\TempFolder -Recurse" },
+      { "description": "Force-delete a read-only file", "code": "Remove-Item .\\locked.txt -Force" },
+      { "description": "Preview what would be deleted", "code": "Remove-Item .\\logs -Recurse -WhatIf" }
+    ]
+  },
+  {
+    "name": "Copy-Item",
+    "category": "filesystem",
+    "synopsis": "Copies an item from one location to another.",
+    "syntax": "Copy-Item [-Path] <String[]> [[-Destination] <String>] [-Recurse] [-Force] [-PassThru]",
+    "description": "Copies files, directories, and other items to a new location. Works across providers and supports -Recurse for directories.",
+    "aliases": ["copy", "cpi", "cp"],
+    "keywords": ["copy", "duplicate", "backup", "cp"],
+    "examples": [
+      { "description": "Copy a file", "code": "Copy-Item .\\source.txt .\\backup.txt" },
+      { "description": "Copy a directory recursively", "code": "Copy-Item .\\src -Destination .\\dst -Recurse" },
+      { "description": "Copy and overwrite silently", "code": "Copy-Item .\\a.txt .\\b.txt -Force" }
+    ]
+  },
+  {
+    "name": "Move-Item",
+    "category": "filesystem",
+    "synopsis": "Moves an item from one location to another.",
+    "syntax": "Move-Item [-Path] <String[]> [[-Destination] <String>] [-Force] [-PassThru]",
+    "description": "Moves files, directories, or other items and optionally renames them in the process.",
+    "aliases": ["mi", "move", "mv"],
+    "keywords": ["move", "rename", "mv"],
+    "examples": [
+      { "description": "Move a file", "code": "Move-Item .\\file.txt .\\archive\\file.txt" },
+      { "description": "Rename a file", "code": "Move-Item .\\old-name.txt .\\new-name.txt" }
+    ]
+  },
+  {
+    "name": "Rename-Item",
+    "category": "filesystem",
+    "synopsis": "Renames an item in a PowerShell provider namespace.",
+    "syntax": "Rename-Item [-Path] <String> [-NewName] <String> [-Force] [-PassThru]",
+    "description": "Renames a single file, directory, or other item in place without moving it.",
+    "aliases": ["rni", "ren"],
+    "keywords": ["rename", "ren", "name"],
+    "examples": [
+      { "description": "Rename a file", "code": "Rename-Item .\\report.txt .\\report-2024.txt" },
+      { "description": "Rename a directory", "code": "Rename-Item .\\OldFolder NewFolder" }
+    ]
+  },
+  {
+    "name": "Get-Content",
+    "category": "filesystem",
+    "synopsis": "Gets the content of the item at the specified location.",
+    "syntax": "Get-Content [-Path] <String[]> [-TotalCount <Int64>] [-Tail <Int32>] [-Encoding <Encoding>] [-Raw]",
+    "description": "Reads a file line by line (or in raw mode as a single string). Supports -Tail for the last N lines, similar to tail -f on Unix.",
+    "aliases": ["cat", "gc", "type"],
+    "keywords": ["read", "cat", "type", "content", "file", "text"],
+    "examples": [
+      { "description": "Read a text file", "code": "Get-Content .\\readme.txt" },
+      { "description": "Read first 5 lines", "code": "Get-Content .\\log.txt -TotalCount 5" },
+      { "description": "Read last 10 lines", "code": "Get-Content .\\log.txt -Tail 10" },
+      { "description": "Read as single string", "code": "Get-Content .\\data.json -Raw" }
+    ]
+  },
+  {
+    "name": "Set-Content",
+    "category": "filesystem",
+    "synopsis": "Writes or replaces the content in an item with new content.",
+    "syntax": "Set-Content [-Path] <String[]> [-Value] <Object[]> [-Encoding <Encoding>] [-Force]",
+    "description": "Overwrites the contents of a file with new content. Unlike Add-Content, it replaces rather than appends.",
+    "aliases": ["sc"],
+    "keywords": ["write", "overwrite", "file", "content", "save"],
+    "examples": [
+      { "description": "Write text to a file", "code": "Set-Content .\\out.txt 'Hello, World!'" },
+      { "description": "Write with UTF-8 encoding", "code": "Set-Content .\\data.txt 'Data' -Encoding UTF8" }
+    ]
+  },
+  {
+    "name": "Add-Content",
+    "category": "filesystem",
+    "synopsis": "Adds content to the specified items, such as adding words to a file.",
+    "syntax": "Add-Content [-Path] <String[]> [-Value] <Object[]> [-Encoding <Encoding>]",
+    "description": "Appends content to an existing file without overwriting. If the file does not exist, it is created.",
+    "aliases": ["ac"],
+    "keywords": ["append", "add", "write", "log", "file"],
+    "examples": [
+      { "description": "Append a line to a log file", "code": "Add-Content .\\app.log 'Service started'" },
+      { "description": "Append output of a command", "code": "Get-Date | Add-Content .\\timestamps.txt" }
+    ]
+  },
+  {
+    "name": "Test-Path",
+    "category": "filesystem",
+    "synopsis": "Determines whether all elements of a path exist.",
+    "syntax": "Test-Path [-Path] <String[]> [-PathType <TestPathType>] [-IsValid]",
+    "description": "Returns $true if the specified path exists, $false otherwise. Use -PathType to distinguish files from containers.",
+    "aliases": [],
+    "keywords": ["exists", "check", "path", "test", "verify"],
+    "examples": [
+      { "description": "Check if a file exists", "code": "Test-Path .\\config.json" },
+      { "description": "Check if a directory exists", "code": "Test-Path C:\\Logs -PathType Container" },
+      { "description": "Conditional creation", "code": "if (-not (Test-Path .\\output)) { New-Item .\\output -ItemType Directory }" }
+    ]
+  },
+  {
+    "name": "Get-Item",
+    "category": "filesystem",
+    "synopsis": "Gets the item at the specified location.",
+    "syntax": "Get-Item [-Path] <String[]> [-Force]",
+    "description": "Returns the item at a given path (file, directory, registry key, etc.) as an object without enumerating its children.",
+    "aliases": ["gi"],
+    "keywords": ["item", "file", "object", "get"],
+    "examples": [
+      { "description": "Get a file object", "code": "Get-Item .\\script.ps1" },
+      { "description": "Get a registry key", "code": "Get-Item 'HKLM:\\Software\\Microsoft\\Windows NT\\CurrentVersion'" }
+    ]
+  },
+  {
+    "name": "Get-Process",
+    "category": "processes",
+    "synopsis": "Gets the processes that are running on the local computer.",
+    "syntax": "Get-Process [[-Name] <String[]>] [-Id <Int32[]>] [-ComputerName <String[]>] [-IncludeUserName]",
+    "description": "Returns process objects with information about CPU, memory, and other resource usage. Supports filtering by name, ID, or remote computer.",
+    "aliases": ["gps", "ps"],
+    "keywords": ["process", "running", "task", "pid", "memory", "cpu"],
+    "examples": [
+      { "description": "List all running processes", "code": "Get-Process" },
+      { "description": "Find a specific process", "code": "Get-Process -Name notepad" },
+      { "description": "Get top 5 CPU-consuming processes", "code": "Get-Process | Sort-Object CPU -Descending | Select-Object -First 5" },
+      { "description": "Show processes with usernames", "code": "Get-Process -IncludeUserName" }
+    ]
+  },
+  {
+    "name": "Stop-Process",
+    "category": "processes",
+    "synopsis": "Stops one or more running processes.",
+    "syntax": "Stop-Process [-Name] <String[]> [-Force] [-PassThru] [-WhatIf]",
+    "description": "Terminates processes by name or ID. Use -Force to kill unresponsive processes. -WhatIf previews without acting.",
+    "aliases": ["kill", "spps"],
+    "keywords": ["kill", "terminate", "stop", "process", "end"],
+    "examples": [
+      { "description": "Stop Notepad", "code": "Stop-Process -Name notepad" },
+      { "description": "Stop by process ID", "code": "Stop-Process -Id 1234" },
+      { "description": "Force-kill all Chrome instances", "code": "Stop-Process -Name chrome -Force" }
+    ]
+  },
+  {
+    "name": "Start-Process",
+    "category": "processes",
+    "synopsis": "Starts one or more processes on the local computer.",
+    "syntax": "Start-Process [-FilePath] <String> [[-ArgumentList] <String[]>] [-Wait] [-NoNewWindow] [-PassThru] [-Verb <String>]",
+    "description": "Launches an application or script. Supports running as administrator (-Verb RunAs), waiting for completion (-Wait), and capturing the process object (-PassThru).",
+    "aliases": ["saps", "start"],
+    "keywords": ["launch", "run", "open", "start", "execute"],
+    "examples": [
+      { "description": "Open Notepad", "code": "Start-Process notepad" },
+      { "description": "Run a script as administrator", "code": "Start-Process pwsh -ArgumentList '-File .\\setup.ps1' -Verb RunAs" },
+      { "description": "Wait for process to finish", "code": "Start-Process msiexec -ArgumentList '/i app.msi /quiet' -Wait" }
+    ]
+  },
+  {
+    "name": "Wait-Process",
+    "category": "processes",
+    "synopsis": "Waits for the processes to be stopped before accepting more input.",
+    "syntax": "Wait-Process [-Name] <String[]> [-Timeout <Int32>]",
+    "description": "Blocks execution until the named or specified process exits, optionally with a timeout in seconds.",
+    "aliases": ["wps"],
+    "keywords": ["wait", "process", "block", "timeout"],
+    "examples": [
+      { "description": "Wait for notepad to close", "code": "Wait-Process -Name notepad" },
+      { "description": "Wait up to 30 seconds", "code": "Wait-Process -Name setup -Timeout 30" }
+    ]
+  },
+  {
+    "name": "Test-Connection",
+    "category": "networking",
+    "synopsis": "Sends ICMP echo requests to one or more computers.",
+    "syntax": "Test-Connection [-TargetName] <String[]> [-Count <Int32>] [-Quiet] [-TimeoutSeconds <Int32>]",
+    "description": "Pings one or more hosts and returns result objects with round-trip time and status. -Quiet returns a boolean for use in conditional logic.",
+    "aliases": ["ping"],
+    "keywords": ["ping", "network", "connectivity", "icmp", "reachable"],
+    "examples": [
+      { "description": "Ping a host", "code": "Test-Connection google.com" },
+      { "description": "Quick boolean check", "code": "Test-Connection 8.8.8.8 -Quiet" },
+      { "description": "Ping multiple hosts", "code": "Test-Connection -TargetName 'server1','server2' -Count 1 -Quiet" }
+    ]
+  },
+  {
+    "name": "Test-NetConnection",
+    "category": "networking",
+    "synopsis": "Displays diagnostic information for a connection.",
+    "syntax": "Test-NetConnection [[-ComputerName] <String>] [-Port <Int32>] [-TraceRoute] [-InformationLevel <String>]",
+    "description": "Tests TCP port connectivity, performs traceroute, and displays network interface and route information. More powerful than Test-Connection.",
+    "aliases": ["tnc"],
+    "keywords": ["tcp", "port", "firewall", "traceroute", "connectivity", "network"],
+    "examples": [
+      { "description": "Test HTTPS port on a website", "code": "Test-NetConnection example.com -Port 443" },
+      { "description": "Trace route to a host", "code": "Test-NetConnection google.com -TraceRoute" },
+      { "description": "Quiet boolean TCP test", "code": "(Test-NetConnection github.com -Port 22).TcpTestSucceeded" }
+    ]
+  },
+  {
+    "name": "Get-NetIPConfiguration",
+    "category": "networking",
+    "synopsis": "Gets IP network configuration.",
+    "syntax": "Get-NetIPConfiguration [-InterfaceAlias <String>] [-Detailed]",
+    "description": "Returns IP address, default gateway, and DNS server configuration for each network adapter.",
+    "aliases": ["gip"],
+    "keywords": ["ip", "address", "network", "configuration", "adapter", "dns", "gateway"],
+    "examples": [
+      { "description": "Show all adapters", "code": "Get-NetIPConfiguration" },
+      { "description": "Show detailed info", "code": "Get-NetIPConfiguration -Detailed" }
+    ]
+  },
+  {
+    "name": "Get-NetIPAddress",
+    "category": "networking",
+    "synopsis": "Gets the IP address configuration.",
+    "syntax": "Get-NetIPAddress [[-IPAddress] <String[]>] [-InterfaceAlias <String>] [-AddressFamily <AddressFamily>]",
+    "description": "Returns all configured IP addresses on all network interfaces, including IPv4 and IPv6.",
+    "aliases": [],
+    "keywords": ["ip", "address", "ipv4", "ipv6", "interface", "adapter"],
+    "examples": [
+      { "description": "List all IP addresses", "code": "Get-NetIPAddress" },
+      { "description": "Show only IPv4 addresses", "code": "Get-NetIPAddress -AddressFamily IPv4" }
+    ]
+  },
+  {
+    "name": "Resolve-DnsName",
+    "category": "networking",
+    "synopsis": "Performs a DNS name query resolution.",
+    "syntax": "Resolve-DnsName [-Name] <String> [-Type <RecordType>] [-Server <String[]>]",
+    "description": "Performs DNS lookups for A, AAAA, MX, TXT, CNAME, and other record types. Replaces the legacy nslookup tool.",
+    "aliases": [],
+    "keywords": ["dns", "lookup", "resolve", "hostname", "ip", "nslookup"],
+    "examples": [
+      { "description": "Resolve a hostname", "code": "Resolve-DnsName google.com" },
+      { "description": "Query MX records", "code": "Resolve-DnsName github.com -Type MX" },
+      { "description": "Use a specific DNS server", "code": "Resolve-DnsName example.com -Server 8.8.8.8" }
+    ]
+  },
+  {
+    "name": "Get-NetTCPConnection",
+    "category": "networking",
+    "synopsis": "Gets current TCP connections.",
+    "syntax": "Get-NetTCPConnection [-LocalAddress <String[]>] [-LocalPort <UInt16[]>] [-RemotePort <UInt16[]>] [-State <State[]>]",
+    "description": "Returns all active and listening TCP connections, similar to netstat. Filter by state such as Listen, Established, or TimeWait.",
+    "aliases": [],
+    "keywords": ["netstat", "tcp", "connections", "ports", "listening", "established"],
+    "examples": [
+      { "description": "Show all TCP connections", "code": "Get-NetTCPConnection" },
+      { "description": "Show listening ports", "code": "Get-NetTCPConnection -State Listen" },
+      { "description": "Find what uses port 80", "code": "Get-NetTCPConnection -LocalPort 80" }
+    ]
+  },
+  {
+    "name": "Get-ComputerInfo",
+    "category": "system",
+    "synopsis": "Gets a consolidated object of system and operating system properties.",
+    "syntax": "Get-ComputerInfo [[-Property] <String[]>]",
+    "description": "Returns a rich object containing OS version, hardware, BIOS, memory, CPU, and Windows features in one call.",
+    "aliases": ["gin"],
+    "keywords": ["system", "os", "hardware", "info", "bios", "windows"],
+    "examples": [
+      { "description": "Get all system information", "code": "Get-ComputerInfo" },
+      { "description": "Get OS version only", "code": "Get-ComputerInfo -Property OsName,OsVersion" },
+      { "description": "Get memory info", "code": "Get-ComputerInfo -Property CsTotalPhysicalMemory" }
+    ]
+  },
+  {
+    "name": "Get-PSDrive",
+    "category": "system",
+    "synopsis": "Gets drives in the current session.",
+    "syntax": "Get-PSDrive [[-Name] <String[]>] [-PSProvider <String[]>]",
+    "description": "Lists all PowerShell drives, including filesystem drives, the registry, environment variables, certificates, and functions.",
+    "aliases": ["gdr"],
+    "keywords": ["drive", "disk", "provider", "registry", "filesystem"],
+    "examples": [
+      { "description": "List all drives", "code": "Get-PSDrive" },
+      { "description": "List only filesystem drives", "code": "Get-PSDrive -PSProvider FileSystem" }
+    ]
+  },
+  {
+    "name": "Get-EventLog",
+    "category": "system",
+    "synopsis": "Gets the events in an event log on local or remote computers.",
+    "syntax": "Get-EventLog [-LogName] <String> [-Newest <Int32>] [-EntryType <String[]>] [-Source <String[]>] [-Message <String>]",
+    "description": "Reads Windows Event Log entries. Use -LogName 'System', 'Application', or 'Security'. Deprecated in favor of Get-WinEvent on newer systems.",
+    "aliases": [],
+    "keywords": ["event", "log", "windows", "error", "warning", "audit"],
+    "examples": [
+      { "description": "Get last 20 System events", "code": "Get-EventLog -LogName System -Newest 20" },
+      { "description": "Get error entries", "code": "Get-EventLog -LogName Application -EntryType Error -Newest 10" }
+    ]
+  },
+  {
+    "name": "Get-WinEvent",
+    "category": "system",
+    "synopsis": "Gets events from event logs and event tracing log files.",
+    "syntax": "Get-WinEvent [[-LogName] <String[]>] [-MaxEvents <Int64>] [-FilterHashtable <Hashtable>]",
+    "description": "Modern replacement for Get-EventLog. Supports ETL files, XML filtering, and works on all Windows event logs including forwarded events.",
+    "aliases": [],
+    "keywords": ["event", "log", "windows", "audit", "security", "etl"],
+    "examples": [
+      { "description": "Get last 10 System log entries", "code": "Get-WinEvent -LogName System -MaxEvents 10" },
+      { "description": "Filter by event ID", "code": "Get-WinEvent -FilterHashtable @{LogName='Security'; Id=4624} -MaxEvents 5" }
+    ]
+  },
+  {
+    "name": "Get-Service",
+    "category": "system",
+    "synopsis": "Gets the services on a computer.",
+    "syntax": "Get-Service [[-Name] <String[]>] [-ComputerName <String[]>] [-DependentServices] [-RequiredServices]",
+    "description": "Returns Windows service objects. Filter by name, display name, or status. Can query remote computers.",
+    "aliases": ["gsv"],
+    "keywords": ["service", "windows", "daemon", "running", "stopped"],
+    "examples": [
+      { "description": "List all services", "code": "Get-Service" },
+      { "description": "Find a specific service", "code": "Get-Service -Name wuauserv" },
+      { "description": "List running services", "code": "Get-Service | Where-Object Status -eq 'Running'" }
+    ]
+  },
+  {
+    "name": "Start-Service",
+    "category": "system",
+    "synopsis": "Starts one or more stopped services.",
+    "syntax": "Start-Service [-Name] <String[]> [-PassThru]",
+    "description": "Starts a stopped Windows service. Requires administrative privileges. Use Get-Service to check status first.",
+    "aliases": ["sasv"],
+    "keywords": ["start", "service", "windows", "enable"],
+    "examples": [
+      { "description": "Start Windows Update", "code": "Start-Service -Name wuauserv" },
+      { "description": "Start and get the service object", "code": "Start-Service -Name Spooler -PassThru" }
+    ]
+  },
+  {
+    "name": "Stop-Service",
+    "category": "system",
+    "synopsis": "Stops one or more running services.",
+    "syntax": "Stop-Service [-Name] <String[]> [-Force] [-PassThru]",
+    "description": "Stops a running Windows service. -Force stops dependent services automatically.",
+    "aliases": ["spsv"],
+    "keywords": ["stop", "service", "windows", "disable"],
+    "examples": [
+      { "description": "Stop the Print Spooler", "code": "Stop-Service -Name Spooler" },
+      { "description": "Force-stop with dependents", "code": "Stop-Service -Name wuauserv -Force" }
+    ]
+  },
+  {
+    "name": "Restart-Service",
+    "category": "system",
+    "synopsis": "Stops and then starts one or more services.",
+    "syntax": "Restart-Service [-Name] <String[]> [-Force] [-PassThru]",
+    "description": "Stops and immediately restarts a service. Equivalent to Stop-Service followed by Start-Service.",
+    "aliases": [],
+    "keywords": ["restart", "service", "windows", "bounce"],
+    "examples": [
+      { "description": "Restart DNS Client", "code": "Restart-Service -Name Dnscache" }
+    ]
+  },
+  {
+    "name": "Get-Variable",
+    "category": "variables",
+    "synopsis": "Gets the variables in the current console.",
+    "syntax": "Get-Variable [[-Name] <String[]>] [-Scope <String>] [-ValueOnly]",
+    "description": "Returns variable objects from the current session or a specified scope (Global, Script, Local).",
+    "aliases": ["gv"],
+    "keywords": ["variable", "scope", "list", "value"],
+    "examples": [
+      { "description": "List all variables", "code": "Get-Variable" },
+      { "description": "Get a specific variable", "code": "Get-Variable -Name PSVersionTable" },
+      { "description": "Get just the value", "code": "Get-Variable -Name PSVersionTable -ValueOnly" }
+    ]
+  },
+  {
+    "name": "Set-Variable",
+    "category": "variables",
+    "synopsis": "Sets the value of a variable. Creates the variable if one with the requested name does not exist.",
+    "syntax": "Set-Variable [-Name] <String[]> [[-Value] <Object>] [-Scope <String>] [-Option <ScopedItemOptions>] [-Force]",
+    "description": "Creates or updates a variable. Use -Option ReadOnly or Constant to prevent modification.",
+    "aliases": ["set", "sv"],
+    "keywords": ["variable", "set", "assign", "scope", "constant", "readonly"],
+    "examples": [
+      { "description": "Set a variable", "code": "Set-Variable -Name greeting -Value 'Hello'" },
+      { "description": "Set a read-only variable", "code": "Set-Variable -Name MaxRetries -Value 5 -Option ReadOnly" }
+    ]
+  },
+  {
+    "name": "Remove-Variable",
+    "category": "variables",
+    "synopsis": "Deletes a variable and its value.",
+    "syntax": "Remove-Variable [-Name] <String[]> [-Scope <String>] [-Force]",
+    "description": "Removes the variable from the current scope. Use -Force to remove read-only variables.",
+    "aliases": ["rv"],
+    "keywords": ["variable", "delete", "remove", "clear"],
+    "examples": [
+      { "description": "Remove a variable", "code": "Remove-Variable -Name tempData" },
+      { "description": "Force-remove read-only variable", "code": "Remove-Variable -Name MaxRetries -Force" }
+    ]
+  },
+  {
+    "name": "Write-Host",
+    "category": "output",
+    "synopsis": "Writes customized output to the host (console).",
+    "syntax": "Write-Host [[-Object] <Object>] [-ForegroundColor <ConsoleColor>] [-BackgroundColor <ConsoleColor>] [-NoNewline]",
+    "description": "Writes text directly to the console with optional color. NOTE: output cannot be captured via the pipeline; use Write-Output for that.",
+    "aliases": [],
+    "keywords": ["print", "echo", "color", "console", "output", "display"],
+    "examples": [
+      { "description": "Print a message", "code": "Write-Host 'Hello, World!'" },
+      { "description": "Colored output", "code": "Write-Host 'ERROR: File not found' -ForegroundColor Red" },
+      { "description": "No newline", "code": "Write-Host 'Loading...' -NoNewline" }
+    ]
+  },
+  {
+    "name": "Write-Output",
+    "category": "output",
+    "synopsis": "Sends the specified objects to the next command in the pipeline.",
+    "syntax": "Write-Output [-InputObject] <PSObject[]> [-NoEnumerate]",
+    "description": "Places objects into the pipeline. Unlike Write-Host, the output CAN be captured by variables or piped to other commands.",
+    "aliases": ["echo", "write"],
+    "keywords": ["output", "pipeline", "return", "echo", "print"],
+    "examples": [
+      { "description": "Output a string", "code": "Write-Output 'Processing complete'" },
+      { "description": "Capture output in a variable", "code": "$result = Write-Output 'data'" },
+      { "description": "Output an array", "code": "Write-Output 1,2,3 | Measure-Object -Sum" }
+    ]
+  },
+  {
+    "name": "Write-Error",
+    "category": "output",
+    "synopsis": "Writes an object to the error stream.",
+    "syntax": "Write-Error [-Message] <String> [-Category <ErrorCategory>] [-ErrorId <String>] [-Exception <Exception>]",
+    "description": "Generates a non-terminating error and writes it to the error stream. Does not stop script execution by default.",
+    "aliases": [],
+    "keywords": ["error", "stderr", "exception", "warning"],
+    "examples": [
+      { "description": "Write an error message", "code": "Write-Error 'File not found: config.json'" },
+      { "description": "Error with category", "code": "Write-Error 'Access denied' -Category PermissionDenied" }
+    ]
+  },
+  {
+    "name": "Write-Warning",
+    "category": "output",
+    "synopsis": "Writes a warning message.",
+    "syntax": "Write-Warning [-Message] <String>",
+    "description": "Outputs a yellow-colored warning message to the warning stream. Can be suppressed with -WarningAction SilentlyContinue.",
+    "aliases": [],
+    "keywords": ["warning", "caution", "message", "yellow"],
+    "examples": [
+      { "description": "Issue a warning", "code": "Write-Warning 'This operation cannot be undone'" }
+    ]
+  },
+  {
+    "name": "Write-Verbose",
+    "category": "output",
+    "synopsis": "Writes text to the verbose message stream.",
+    "syntax": "Write-Verbose [-Message] <String>",
+    "description": "Outputs diagnostic messages only when -Verbose is specified or $VerbosePreference = 'Continue'. Ideal for debugging.",
+    "aliases": [],
+    "keywords": ["verbose", "debug", "diagnostic", "logging"],
+    "examples": [
+      { "description": "Write verbose message", "code": "Write-Verbose 'Connecting to database...'" },
+      { "description": "Enable verbose globally", "code": "$VerbosePreference = 'Continue'\nWrite-Verbose 'This now shows'" }
+    ]
+  },
+  {
+    "name": "Write-Debug",
+    "category": "output",
+    "synopsis": "Writes a debug message to the console.",
+    "syntax": "Write-Debug [-Message] <String>",
+    "description": "Outputs messages only when the debug stream is enabled via -Debug or $DebugPreference = 'Continue'.",
+    "aliases": [],
+    "keywords": ["debug", "diagnostic", "tracing", "development"],
+    "examples": [
+      { "description": "Write a debug message", "code": "Write-Debug \"Variable value: $myVar\"" }
+    ]
+  },
+  {
+    "name": "Format-Table",
+    "category": "formatting",
+    "synopsis": "Formats the output as a table.",
+    "syntax": "Format-Table [[-Property] <Object[]>] [-AutoSize] [-Wrap] [-GroupBy <Object>] [-HideTableHeaders]",
+    "description": "Displays objects in a tabular format. Use -AutoSize to fit column widths, and -Property to select specific properties.",
+    "aliases": ["ft"],
+    "keywords": ["table", "format", "columns", "display", "output"],
+    "examples": [
+      { "description": "Format processes as a table", "code": "Get-Process | Format-Table Name, CPU, WorkingSet -AutoSize" },
+      { "description": "Wrap long values", "code": "Get-Service | Format-Table -Wrap" }
+    ]
+  },
+  {
+    "name": "Format-List",
+    "category": "formatting",
+    "synopsis": "Formats the output as a list of properties in which each property appears on a new line.",
+    "syntax": "Format-List [[-Property] <Object[]>] [-GroupBy <Object>]",
+    "description": "Displays each object property on its own line, useful for wide or deeply nested objects.",
+    "aliases": ["fl"],
+    "keywords": ["list", "format", "properties", "display", "output"],
+    "examples": [
+      { "description": "Show all properties", "code": "Get-Process -Name pwsh | Format-List *" },
+      { "description": "Show selected properties", "code": "Get-Service | Format-List Name, DisplayName, Status" }
+    ]
+  },
+  {
+    "name": "Select-Object",
+    "category": "pipeline",
+    "synopsis": "Selects objects or object properties.",
+    "syntax": "Select-Object [[-Property] <Object[]>] [-First <Int32>] [-Last <Int32>] [-Unique] [-ExpandProperty <String>] [-Skip <Int32>]",
+    "description": "Filters properties, picks the first/last N objects, or expands a single property from pipeline objects.",
+    "aliases": ["select"],
+    "keywords": ["select", "filter", "properties", "first", "last", "unique", "projection"],
+    "examples": [
+      { "description": "Select specific properties", "code": "Get-Process | Select-Object Name, CPU, Id" },
+      { "description": "Get first 5 results", "code": "Get-Process | Select-Object -First 5" },
+      { "description": "Get unique values", "code": "Get-Process | Select-Object -ExpandProperty Name -Unique" }
+    ]
+  },
+  {
+    "name": "Where-Object",
+    "category": "pipeline",
+    "synopsis": "Selects objects from a collection based on their property values.",
+    "syntax": "Where-Object [-Property] <String> [[-Value] <Object>] [-EQ|-NE|-GT|-LT|-Like|-Match ...]\nWhere-Object [-FilterScript] <ScriptBlock>",
+    "description": "Filters pipeline objects by property comparison or script block. Equivalent to SQL WHERE. The alias ? is commonly used.",
+    "aliases": ["where", "?"],
+    "keywords": ["filter", "where", "condition", "query", "search"],
+    "examples": [
+      { "description": "Filter running services", "code": "Get-Service | Where-Object Status -eq 'Running'" },
+      { "description": "Script block filter", "code": "Get-Process | Where-Object { $_.CPU -gt 10 }" },
+      { "description": "String match filter", "code": "Get-ChildItem | Where-Object Name -like '*.log'" }
+    ]
+  },
+  {
+    "name": "Sort-Object",
+    "category": "pipeline",
+    "synopsis": "Sorts objects by property values.",
+    "syntax": "Sort-Object [[-Property] <Object[]>] [-Descending] [-Unique] [-Top <Int32>] [-Bottom <Int32>]",
+    "description": "Sorts pipeline objects by one or more properties in ascending or descending order.",
+    "aliases": ["sort"],
+    "keywords": ["sort", "order", "ascending", "descending", "rank"],
+    "examples": [
+      { "description": "Sort processes by CPU descending", "code": "Get-Process | Sort-Object CPU -Descending" },
+      { "description": "Sort files by size", "code": "Get-ChildItem | Sort-Object Length" },
+      { "description": "Top 10 after sort", "code": "Get-Process | Sort-Object WorkingSet -Descending | Select-Object -First 10" }
+    ]
+  },
+  {
+    "name": "Group-Object",
+    "category": "pipeline",
+    "synopsis": "Groups objects that contain the same value for specified properties.",
+    "syntax": "Group-Object [[-Property] <Object[]>] [-NoElement] [-AsHashTable] [-CaseSensitive]",
+    "description": "Groups pipeline objects by a shared property value and returns count, name, and group members.",
+    "aliases": ["group"],
+    "keywords": ["group", "aggregate", "count", "category", "bucket"],
+    "examples": [
+      { "description": "Count processes by status", "code": "Get-Service | Group-Object Status" },
+      { "description": "Group files by extension", "code": "Get-ChildItem | Group-Object Extension" },
+      { "description": "Return as hashtable", "code": "Get-Service | Group-Object Status -AsHashTable" }
+    ]
+  },
+  {
+    "name": "Measure-Object",
+    "category": "pipeline",
+    "synopsis": "Calculates the numeric properties of objects, and the characters, words, and lines in string objects.",
+    "syntax": "Measure-Object [[-Property] <String[]>] [-Sum] [-Average] [-Maximum] [-Minimum] [-Count] [-Word] [-Line] [-Character]",
+    "description": "Performs aggregate calculations. Combine with -Sum, -Average, -Maximum, -Minimum for numeric data or -Word/-Line for text.",
+    "aliases": ["measure"],
+    "keywords": ["sum", "average", "count", "max", "min", "statistics", "aggregate"],
+    "examples": [
+      { "description": "Count objects", "code": "Get-Process | Measure-Object" },
+      { "description": "Sum file sizes", "code": "Get-ChildItem C:\\ | Measure-Object Length -Sum" },
+      { "description": "Word count a file", "code": "Get-Content readme.txt | Measure-Object -Word -Line" }
+    ]
+  },
+  {
+    "name": "ForEach-Object",
+    "category": "pipeline",
+    "synopsis": "Performs an operation against each item in a collection of input objects.",
+    "syntax": "ForEach-Object [-Process] <ScriptBlock[]> [-Begin <ScriptBlock>] [-End <ScriptBlock>]",
+    "description": "Iterates over each pipeline object and runs a script block. Inside the block, $_ or $PSItem refers to the current object.",
+    "aliases": ["foreach", "%"],
+    "keywords": ["loop", "iterate", "foreach", "each", "pipeline"],
+    "examples": [
+      { "description": "Double each number", "code": "1..5 | ForEach-Object { $_ * 2 }" },
+      { "description": "Restart multiple services", "code": "'Spooler','Dnscache' | ForEach-Object { Restart-Service $_ }" },
+      { "description": "Use begin/end blocks", "code": "1..3 | ForEach-Object -Begin { 'Start' } -Process { $_ } -End { 'Done' }" }
+    ]
+  },
+  {
+    "name": "Invoke-Command",
+    "category": "remoting",
+    "synopsis": "Runs commands on local and remote computers.",
+    "syntax": "Invoke-Command [-ScriptBlock] <ScriptBlock> [-ComputerName <String[]>] [-Session <PSSession[]>] [-ArgumentList <Object[]>] [-AsJob]",
+    "description": "Executes a script block locally or on one or more remote computers via WinRM. Supports existing sessions (-Session) and background jobs (-AsJob).",
+    "aliases": ["icm"],
+    "keywords": ["remote", "invoke", "execute", "command", "winrm", "psremoting"],
+    "examples": [
+      { "description": "Run a command remotely", "code": "Invoke-Command -ComputerName server01 -ScriptBlock { Get-Process }" },
+      { "description": "Pass arguments to remote script", "code": "Invoke-Command -ComputerName srv01 -ScriptBlock { param($n) Get-Service $n } -ArgumentList 'Spooler'" },
+      { "description": "Run locally in a new scope", "code": "Invoke-Command -ScriptBlock { 'Hello from new scope' }" }
+    ]
+  },
+  {
+    "name": "New-PSSession",
+    "category": "remoting",
+    "synopsis": "Creates a persistent connection to a local or remote computer.",
+    "syntax": "New-PSSession [[-ComputerName] <String[]>] [-Credential <PSCredential>] [-ConfigurationName <String>]",
+    "description": "Opens a reusable PowerShell remoting session. Persistent sessions are more efficient than creating a new connection per command.",
+    "aliases": ["nsn"],
+    "keywords": ["session", "remote", "connection", "winrm", "psremoting"],
+    "examples": [
+      { "description": "Create a session", "code": "$s = New-PSSession -ComputerName server01" },
+      { "description": "Session with credentials", "code": "$s = New-PSSession -ComputerName srv01 -Credential (Get-Credential)" },
+      { "description": "Use then close", "code": "$s = New-PSSession server01\nInvoke-Command -Session $s { hostname }\nRemove-PSSession $s" }
+    ]
+  },
+  {
+    "name": "Import-Module",
+    "category": "modules",
+    "synopsis": "Adds modules to the current session.",
+    "syntax": "Import-Module [-Name] <String[]> [-Version <Version>] [-Force] [-PassThru] [-Global]",
+    "description": "Loads a module's cmdlets, functions, variables, and providers into the current session. Supports module names or paths.",
+    "aliases": ["ipmo"],
+    "keywords": ["module", "import", "load", "library", "extension"],
+    "examples": [
+      { "description": "Import a module", "code": "Import-Module ActiveDirectory" },
+      { "description": "Force reimport", "code": "Import-Module MyModule -Force" },
+      { "description": "Import from a specific path", "code": "Import-Module C:\\Modules\\MyModule.psm1" }
+    ]
+  },
+  {
+    "name": "Get-Module",
+    "category": "modules",
+    "synopsis": "Gets the modules that have been imported or that can be imported into the current session.",
+    "syntax": "Get-Module [[-Name] <String[]>] [-ListAvailable] [-All]",
+    "description": "Lists loaded modules (-All for all) or all modules installed on the system (-ListAvailable).",
+    "aliases": ["gmo"],
+    "keywords": ["module", "list", "installed", "available", "library"],
+    "examples": [
+      { "description": "List loaded modules", "code": "Get-Module" },
+      { "description": "List all installed modules", "code": "Get-Module -ListAvailable" },
+      { "description": "Check if a module is available", "code": "Get-Module -Name PSReadLine -ListAvailable" }
+    ]
+  },
+  {
+    "name": "Install-Module",
+    "category": "modules",
+    "synopsis": "Downloads and installs one or more modules from a repository.",
+    "syntax": "Install-Module [-Name] <String[]> [-Version <String>] [-Repository <String>] [-Scope <String>] [-Force]",
+    "description": "Installs modules from the PowerShell Gallery or another registered repository. Use -Scope CurrentUser to install without admin rights.",
+    "aliases": [],
+    "keywords": ["install", "module", "gallery", "psgallery", "package", "download"],
+    "examples": [
+      { "description": "Install from PSGallery", "code": "Install-Module -Name Pester" },
+      { "description": "Install for current user only", "code": "Install-Module -Name PSReadLine -Scope CurrentUser" },
+      { "description": "Install specific version", "code": "Install-Module -Name Az -RequiredVersion 9.0.0" }
+    ]
+  },
+  {
+    "name": "Get-Command",
+    "category": "discovery",
+    "synopsis": "Gets all commands that are installed on the computer.",
+    "syntax": "Get-Command [[-Name] <String[]>] [-CommandType <CommandTypes>] [-Module <String[]>] [-Verb <String[]>] [-Noun <String[]>]",
+    "description": "Discovers cmdlets, functions, scripts, and aliases. Use -Verb and -Noun to find related commands or -Module to scope to a module.",
+    "aliases": ["gcm"],
+    "keywords": ["discover", "find", "command", "cmdlet", "function", "alias"],
+    "examples": [
+      { "description": "Find all Get- commands", "code": "Get-Command -Verb Get" },
+      { "description": "Find commands in a module", "code": "Get-Command -Module ActiveDirectory" },
+      { "description": "Find by partial name", "code": "Get-Command *service*" }
+    ]
+  },
+  {
+    "name": "Get-Help",
+    "category": "discovery",
+    "synopsis": "Displays information about PowerShell commands and concepts.",
+    "syntax": "Get-Help [[-Name] <String>] [-Full] [-Examples] [-Online] [-Parameter <String>] [-ShowWindow]",
+    "description": "Displays built-in documentation for any cmdlet, function, or concept. Use Update-Help first to download the latest help files.",
+    "aliases": ["help", "man"],
+    "keywords": ["help", "documentation", "man", "manual", "info"],
+    "examples": [
+      { "description": "Get basic help", "code": "Get-Help Get-Process" },
+      { "description": "Show examples only", "code": "Get-Help Get-Process -Examples" },
+      { "description": "Full documentation", "code": "Get-Help Get-ChildItem -Full" },
+      { "description": "Open online help", "code": "Get-Help Get-Service -Online" }
+    ]
+  },
+  {
+    "name": "Get-Member",
+    "category": "discovery",
+    "synopsis": "Gets the properties and methods of objects.",
+    "syntax": "Get-Member [[-Name] <String[]>] [-InputObject <PSObject>] [-MemberType <PSMemberTypes>]",
+    "description": "Reveals the type, properties, methods, and events of any object. Essential for exploring unfamiliar objects in the pipeline.",
+    "aliases": ["gm"],
+    "keywords": ["object", "properties", "methods", "type", "introspect", "members"],
+    "examples": [
+      { "description": "Explore a process object", "code": "Get-Process | Get-Member" },
+      { "description": "Show only methods", "code": "Get-Date | Get-Member -MemberType Method" },
+      { "description": "Show properties of a string", "code": "'hello' | Get-Member -MemberType Property" }
+    ]
+  },
+  {
+    "name": "Invoke-RestMethod",
+    "category": "web",
+    "synopsis": "Sends an HTTP or HTTPS request to a RESTful web service.",
+    "syntax": "Invoke-RestMethod [-Uri] <Uri> [-Method <WebRequestMethod>] [-Headers <IDictionary>] [-Body <Object>] [-ContentType <String>]",
+    "description": "Makes HTTP requests and automatically parses JSON, XML, or CSV responses into PowerShell objects. The go-to tool for API calls.",
+    "aliases": ["irm"],
+    "keywords": ["rest", "api", "http", "json", "web", "request", "curl"],
+    "examples": [
+      { "description": "GET request", "code": "Invoke-RestMethod -Uri 'https://api.github.com/users/octocat'" },
+      { "description": "POST with JSON body", "code": "Invoke-RestMethod -Uri 'https://api.example.com/data' -Method Post -Body (@{name='test'} | ConvertTo-Json) -ContentType 'application/json'" },
+      { "description": "With auth header", "code": "Invoke-RestMethod -Uri 'https://api.example.com' -Headers @{Authorization='Bearer TOKEN'}" }
+    ]
+  },
+  {
+    "name": "Invoke-WebRequest",
+    "category": "web",
+    "synopsis": "Gets content from a web page on the internet.",
+    "syntax": "Invoke-WebRequest [-Uri] <Uri> [-Method <WebRequestMethod>] [-Headers <IDictionary>] [-OutFile <String>] [-UseBasicParsing]",
+    "description": "Downloads web pages and returns the full response including headers, status code, and parsed HTML. For raw HTTP work, prefer this over Invoke-RestMethod.",
+    "aliases": ["iwr", "curl", "wget"],
+    "keywords": ["web", "http", "download", "html", "scrape", "curl", "wget"],
+    "examples": [
+      { "description": "Download a file", "code": "Invoke-WebRequest -Uri 'https://example.com/file.zip' -OutFile .\\file.zip" },
+      { "description": "Check HTTP status", "code": "(Invoke-WebRequest -Uri 'https://example.com').StatusCode" },
+      { "description": "Extract links from a page", "code": "(Invoke-WebRequest -Uri 'https://example.com').Links | Select-Object href" }
+    ]
+  },
+  {
+    "name": "ConvertTo-Json",
+    "category": "data",
+    "synopsis": "Converts an object to a JSON-formatted string.",
+    "syntax": "ConvertTo-Json [-InputObject] <Object> [-Depth <Int32>] [-Compress] [-EnumsAsStrings]",
+    "description": "Serializes PowerShell objects to JSON. Use -Depth to control how deeply nested objects are serialized (default is 2).",
+    "aliases": [],
+    "keywords": ["json", "serialize", "convert", "export", "api"],
+    "examples": [
+      { "description": "Convert a hashtable to JSON", "code": "@{name='Alice'; age=30} | ConvertTo-Json" },
+      { "description": "Compact JSON", "code": "@{a=1;b=2} | ConvertTo-Json -Compress" },
+      { "description": "Deep conversion", "code": "$complexObj | ConvertTo-Json -Depth 10" }
+    ]
+  },
+  {
+    "name": "ConvertFrom-Json",
+    "category": "data",
+    "synopsis": "Converts a JSON-formatted string to a custom object or hash table.",
+    "syntax": "ConvertFrom-Json [-InputObject] <String> [-AsHashtable] [-Depth <Int32>]",
+    "description": "Deserializes a JSON string into a PowerShell PSCustomObject or (with -AsHashtable) a hashtable.",
+    "aliases": [],
+    "keywords": ["json", "deserialize", "parse", "convert", "import"],
+    "examples": [
+      { "description": "Parse JSON string", "code": "'{\"name\":\"Alice\"}' | ConvertFrom-Json" },
+      { "description": "Read and parse JSON file", "code": "Get-Content config.json -Raw | ConvertFrom-Json" },
+      { "description": "Parse as hashtable", "code": "'{\"a\":1}' | ConvertFrom-Json -AsHashtable" }
+    ]
+  },
+  {
+    "name": "Export-Csv",
+    "category": "data",
+    "synopsis": "Converts objects into a series of comma-separated value (CSV) strings and saves the strings to a file.",
+    "syntax": "Export-Csv [-Path] <String> [-InputObject <PSObject>] [-Delimiter <Char>] [-NoTypeInformation] [-Append] [-Encoding <Encoding>]",
+    "description": "Serializes objects to CSV format. Each property becomes a column header. Use -NoTypeInformation to omit the #TYPE line.",
+    "aliases": ["epcsv"],
+    "keywords": ["csv", "export", "file", "spreadsheet", "excel", "table"],
+    "examples": [
+      { "description": "Export processes to CSV", "code": "Get-Process | Export-Csv -Path .\\processes.csv -NoTypeInformation" },
+      { "description": "Append to existing CSV", "code": "Get-Service | Select Name,Status | Export-Csv .\\services.csv -Append -NoTypeInformation" }
+    ]
+  },
+  {
+    "name": "Import-Csv",
+    "category": "data",
+    "synopsis": "Creates table-like custom objects from the items in a CSV file.",
+    "syntax": "Import-Csv [-Path] <String[]> [-Delimiter <Char>] [-Header <String[]>] [-Encoding <Encoding>]",
+    "description": "Reads a CSV file and returns one object per row, with property names from the header row.",
+    "aliases": ["ipcsv"],
+    "keywords": ["csv", "import", "read", "parse", "spreadsheet", "table"],
+    "examples": [
+      { "description": "Import a CSV file", "code": "Import-Csv .\\users.csv" },
+      { "description": "Process each row", "code": "Import-Csv .\\servers.csv | ForEach-Object { Test-Connection $_.Hostname -Quiet }" }
+    ]
+  },
+  {
+    "name": "Get-Date",
+    "category": "utility",
+    "synopsis": "Gets the current date and time.",
+    "syntax": "Get-Date [[-Date] <DateTime>] [-Format <String>] [-UFormat <String>] [-Year <Int32>] [-Month <Int32>] [-Day <Int32>]",
+    "description": "Returns a DateTime object for the current or specified date/time. Use -Format for .NET format strings or -UFormat for Unix-style.",
+    "aliases": [],
+    "keywords": ["date", "time", "datetime", "now", "timestamp"],
+    "examples": [
+      { "description": "Get current date/time", "code": "Get-Date" },
+      { "description": "Format as ISO 8601", "code": "Get-Date -Format 'yyyy-MM-ddTHH:mm:ss'" },
+      { "description": "Get Unix timestamp", "code": "Get-Date -UFormat '%s'" },
+      { "description": "Date 7 days from now", "code": "(Get-Date).AddDays(7)" }
+    ]
+  },
+  {
+    "name": "Start-Sleep",
+    "category": "utility",
+    "synopsis": "Suspends the activity in a script or session for the specified period of time.",
+    "syntax": "Start-Sleep [-Seconds] <Double> [-Milliseconds <Int32>]",
+    "description": "Pauses script execution for a given number of seconds or milliseconds.",
+    "aliases": ["sleep"],
+    "keywords": ["sleep", "wait", "pause", "delay", "seconds"],
+    "examples": [
+      { "description": "Wait 5 seconds", "code": "Start-Sleep -Seconds 5" },
+      { "description": "Wait 500 milliseconds", "code": "Start-Sleep -Milliseconds 500" }
+    ]
+  },
+  {
+    "name": "Clear-Host",
+    "category": "utility",
+    "synopsis": "Clears the display in the host program.",
+    "syntax": "Clear-Host",
+    "description": "Clears the console terminal screen.",
+    "aliases": ["clear", "cls"],
+    "keywords": ["clear", "cls", "console", "screen", "terminal"],
+    "examples": [
+      { "description": "Clear the screen", "code": "Clear-Host" }
+    ]
+  },
+  {
+    "name": "Read-Host",
+    "category": "utility",
+    "synopsis": "Reads a line of input from the console.",
+    "syntax": "Read-Host [[-Prompt] <Object>] [-AsSecureString] [-MaskInput]",
+    "description": "Prompts the user for input. Use -AsSecureString for passwords to avoid storing them in plain text.",
+    "aliases": [],
+    "keywords": ["input", "prompt", "user", "interactive", "readline"],
+    "examples": [
+      { "description": "Prompt for a name", "code": "$name = Read-Host 'Enter your name'" },
+      { "description": "Prompt for a password", "code": "$pwd = Read-Host 'Enter password' -AsSecureString" }
+    ]
+  },
+  {
+    "name": "Tee-Object",
+    "category": "pipeline",
+    "synopsis": "Saves command output in a file or variable and also sends it down the pipeline.",
+    "syntax": "Tee-Object [-FilePath] <String> [-InputObject <PSObject>] [-Append]\nTee-Object -Variable <String> [-InputObject <PSObject>]",
+    "description": "Splits the pipeline stream so output goes to both a file/variable and continues down the pipeline.",
+    "aliases": ["tee"],
+    "keywords": ["tee", "split", "save", "pipeline", "file", "variable"],
+    "examples": [
+      { "description": "Tee to a file", "code": "Get-Process | Tee-Object -FilePath .\\procs.txt | Select-Object -First 5" },
+      { "description": "Tee to a variable", "code": "Get-Service | Tee-Object -Variable svc | Measure-Object" }
+    ]
+  },
+  {
+    "name": "Out-File",
+    "category": "output",
+    "synopsis": "Sends output to a file.",
+    "syntax": "Out-File [-FilePath] <String> [-Encoding <Encoding>] [-Append] [-Width <Int32>] [-Force] [-NoClobber]",
+    "description": "Redirects pipeline output to a file. Unlike Export-Csv or ConvertTo-Json, it writes the formatted text representation.",
+    "aliases": [],
+    "keywords": ["file", "save", "output", "redirect", "write"],
+    "examples": [
+      { "description": "Save output to file", "code": "Get-Process | Out-File -FilePath .\\output.txt" },
+      { "description": "Append to file", "code": "Get-Date | Out-File .\\log.txt -Append" }
+    ]
+  },
+  {
+    "name": "Out-GridView",
+    "category": "output",
+    "synopsis": "Sends output to an interactive table in a separate window.",
+    "syntax": "Out-GridView [-Title <String>] [-PassThru] [-OutputMode <OutputModeOption>]",
+    "description": "Opens an interactive GUI grid that allows sorting, filtering, and selecting rows. Use -PassThru to return selected items to the pipeline.",
+    "aliases": ["ogv"],
+    "keywords": ["gui", "grid", "interactive", "table", "visual", "filter"],
+    "examples": [
+      { "description": "Browse processes visually", "code": "Get-Process | Out-GridView" },
+      { "description": "Select a service interactively", "code": "$svc = Get-Service | Out-GridView -PassThru -Title 'Select a service'" }
+    ]
+  },
+  {
+    "name": "Select-String",
+    "category": "text",
+    "synopsis": "Finds text in strings and files.",
+    "syntax": "Select-String [-Pattern] <String[]> [-Path <String[]>] [-CaseSensitive] [-NotMatch] [-AllMatches] [-Context <Int32[]>]",
+    "description": "Searches strings and files using regular expressions. Returns match objects with filename, line number, and matched text. Equivalent to grep.",
+    "aliases": ["sls"],
+    "keywords": ["grep", "search", "text", "regex", "find", "pattern", "match"],
+    "examples": [
+      { "description": "Search for a pattern in files", "code": "Select-String -Pattern 'error' -Path .\\*.log" },
+      { "description": "Case-sensitive search", "code": "Select-String 'ERROR' .\\app.log -CaseSensitive" },
+      { "description": "Show 2 lines of context", "code": "Select-String 'exception' .\\debug.log -Context 2" },
+      { "description": "Grep pipeline", "code": "Get-Content .\\data.txt | Select-String 'pattern'" }
+    ]
+  },
+  {
+    "name": "Get-Credential",
+    "category": "security",
+    "synopsis": "Gets a credential object based on a user name and password.",
+    "syntax": "Get-Credential [[-Credential] <PSCredential>] [-Message <String>] [-UserName <String>]",
+    "description": "Prompts for username and password and returns a PSCredential object. Credentials are stored securely and never as plain-text strings.",
+    "aliases": [],
+    "keywords": ["credential", "password", "username", "authentication", "secure"],
+    "examples": [
+      { "description": "Prompt for credentials", "code": "$cred = Get-Credential" },
+      { "description": "Prompt with a message", "code": "$cred = Get-Credential -Message 'Enter admin credentials' -UserName 'DOMAIN\\admin'" }
+    ]
+  },
+  {
+    "name": "ConvertTo-SecureString",
+    "category": "security",
+    "synopsis": "Converts plain text or an encrypted standard string to a secure string.",
+    "syntax": "ConvertTo-SecureString [-String] <String> [-AsPlainText] [-Force]\nConvertTo-SecureString [-String] <String> [-Key <Byte[]>]",
+    "description": "Creates a SecureString from plain text. In scripts, use -AsPlainText -Force. For production, prefer encrypted strings saved with ConvertFrom-SecureString.",
+    "aliases": [],
+    "keywords": ["password", "secure", "string", "encrypt", "credentials"],
+    "examples": [
+      { "description": "Convert plain text (use cautiously)", "code": "$secure = ConvertTo-SecureString 'P@ssw0rd' -AsPlainText -Force" },
+      { "description": "Create credential from secure string", "code": "$cred = New-Object PSCredential 'domain\\user', $secure" }
+    ]
+  },
+  {
+    "name": "Set-ExecutionPolicy",
+    "category": "security",
+    "synopsis": "Sets the PowerShell execution policy for Windows computers.",
+    "syntax": "Set-ExecutionPolicy [-ExecutionPolicy] <ExecutionPolicy> [-Scope <ExecutionPolicyScope>] [-Force]",
+    "description": "Controls which scripts are allowed to run. Policies: Restricted, AllSigned, RemoteSigned, Unrestricted, Bypass. Use -Scope to limit the change.",
+    "aliases": [],
+    "keywords": ["execution", "policy", "security", "script", "signed", "restricted"],
+    "examples": [
+      { "description": "Allow local scripts", "code": "Set-ExecutionPolicy RemoteSigned -Scope CurrentUser" },
+      { "description": "Check current policy", "code": "Get-ExecutionPolicy -List" }
+    ]
+  },
+  {
+    "name": "Get-ScheduledTask",
+    "category": "tasks",
+    "synopsis": "Gets the task definition object of a scheduled task.",
+    "syntax": "Get-ScheduledTask [[-TaskName] <String[]>] [-TaskPath <String[]>]",
+    "description": "Returns scheduled task objects. Filter by task name or path. Works on local and remote computers.",
+    "aliases": [],
+    "keywords": ["scheduled", "task", "automation", "cron", "timer"],
+    "examples": [
+      { "description": "List all tasks", "code": "Get-ScheduledTask" },
+      { "description": "Find a specific task", "code": "Get-ScheduledTask -TaskName 'Windows Defender*'" },
+      { "description": "List enabled tasks", "code": "Get-ScheduledTask | Where-Object State -eq 'Ready'" }
+    ]
+  },
+  {
+    "name": "Register-ScheduledTask",
+    "category": "tasks",
+    "synopsis": "Registers a scheduled task definition on a local computer.",
+    "syntax": "Register-ScheduledTask [-TaskName] <String> -Action <CimInstance[]> -Trigger <CimInstance[]> [-RunLevel <RunLevelEnum>] [-Force]",
+    "description": "Creates a new scheduled task using an action and trigger. Build the action with New-ScheduledTaskAction and the trigger with New-ScheduledTaskTrigger.",
+    "aliases": [],
+    "keywords": ["scheduled", "task", "create", "automate", "cron", "register"],
+    "examples": [
+      { "description": "Create a daily backup task", "code": "$action = New-ScheduledTaskAction -Execute 'pwsh' -Argument '-File C:\\Scripts\\backup.ps1'\n$trigger = New-ScheduledTaskTrigger -Daily -At 2am\nRegister-ScheduledTask -TaskName 'DailyBackup' -Action $action -Trigger $trigger" }
+    ]
+  },
+  {
+    "name": "Get-ItemProperty",
+    "category": "registry",
+    "synopsis": "Gets the properties of a specified item.",
+    "syntax": "Get-ItemProperty [-Path] <String[]> [[-Name] <String[]>]",
+    "description": "Reads registry values when used with the HKLM: or HKCU: provider. Also works on file/folder attributes.",
+    "aliases": ["gp"],
+    "keywords": ["registry", "key", "value", "property", "hklm", "hkcu"],
+    "examples": [
+      { "description": "Read a registry value", "code": "Get-ItemProperty -Path 'HKLM:\\Software\\Microsoft\\Windows NT\\CurrentVersion' -Name ProductName" },
+      { "description": "Read all values in a key", "code": "Get-ItemProperty 'HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Run'" }
+    ]
+  },
+  {
+    "name": "Set-ItemProperty",
+    "category": "registry",
+    "synopsis": "Creates or changes the value of a property of an item.",
+    "syntax": "Set-ItemProperty [-Path] <String[]> [-Name] <String> [-Value] <Object> [-Type <RegistryValueKind>] [-Force]",
+    "description": "Writes registry values or file attributes. Use -Type to specify registry value type: String, DWord, QWord, ExpandString, Binary, MultiString.",
+    "aliases": ["sp"],
+    "keywords": ["registry", "set", "write", "value", "key", "property"],
+    "examples": [
+      { "description": "Set a registry string value", "code": "Set-ItemProperty -Path 'HKCU:\\Software\\MyApp' -Name 'Theme' -Value 'Dark'" },
+      { "description": "Set a DWORD value", "code": "Set-ItemProperty -Path 'HKCU:\\Software\\MyApp' -Name 'MaxItems' -Value 100 -Type DWord" }
+    ]
   }
 ]
