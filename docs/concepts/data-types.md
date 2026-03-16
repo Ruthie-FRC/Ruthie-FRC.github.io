@@ -94,7 +94,7 @@ $b  = 0b1010      # binary literal = 10 (PS 6+)
 [math]::Sqrt(16)  # 4.0
 [math]::Round(3.14159, 2)  # 3.14
 
-# Size suffixes (PS 6+)
+# Size suffixes (available since PS 1.0)
 1KB   # 1024
 1MB   # 1048576
 1GB   # 1073741824

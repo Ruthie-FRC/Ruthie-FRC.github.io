@@ -160,7 +160,7 @@ Get-ChildItem C:\ 2>&1 | Out-File .\all.txt  # combine streams
 ```powershell
 1..10        # array: 1 through 10
 10..1        # array: 10 down to 1
-'a'..'z'     # array: 'a' through 'z' (as int)
+'a'..'z'     # array: 'a' through 'z' (returns char in PS 7.4+, int in earlier versions)
 foreach ($i in 1..5) { $i }
 ```
 

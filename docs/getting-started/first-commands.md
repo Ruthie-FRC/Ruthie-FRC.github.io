@@ -175,7 +175,7 @@ PowerShell has many aliases so existing muscle memory from cmd/bash still works:
 | `rm` / `del` | `Remove-Item` |
 | `cp` | `Copy-Item` |
 | `mv` | `Move-Item` |
-| `curl` / `wget` | `Invoke-WebRequest` |
+| `curl` / `wget` | `Invoke-WebRequest` (aliases removed in PS 7+) |
 | `man` | `Get-Help` |
 
 !!! warning "Aliases in scripts"

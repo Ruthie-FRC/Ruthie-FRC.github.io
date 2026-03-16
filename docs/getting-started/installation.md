@@ -41,7 +41,7 @@ PowerShell 7+ is available on Windows, macOS, and Linux. Choose your platform be
 === "Homebrew (recommended)"
 
     ```bash
-    brew install powershell/tap/powershell
+    brew install --cask powershell
     pwsh   # launch
     ```
 
@@ -100,9 +100,9 @@ Expected output (version numbers will vary):
 ```
 Name                           Value
 ----                           -----
-PSVersion                      7.4.0
+PSVersion                      7.5.0
 PSEdition                      Core
-GitCommitId                    7.4.0
+GitCommitId                    7.5.0
 OS                             Microsoft Windows 10.0.22621
 Platform                       Win32NT
 PSCompatibleVersions           {1.0, 2.0, 3.0, 4.0…}

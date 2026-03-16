@@ -33,7 +33,7 @@ theme:
     - navigation.tracking
     - navigation.sections
     - navigation.expand
-    - navigation.tabs
+    - navigation.indexes
     - navigation.top
     - search.highlight
     - search.suggest
@@ -123,3 +123,4 @@ nav:
       - Publishing to PSGallery: authoring/psgallery.md
   - Command Reference: command-reference.md
   - Examples & Recipes: examples.md
+  - Contributing: contributing.md

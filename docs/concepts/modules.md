@@ -153,6 +153,6 @@ Export-ModuleMember -Function Get-Greeting, Get-Farewell
 | `PSScriptAnalyzer` | `Install-Module PSScriptAnalyzer` | Linter and best-practice analyzer |
 | `ImportExcel` | `Install-Module ImportExcel` | Read/write Excel files without Excel |
 | `dbatools` | `Install-Module dbatools` | SQL Server management |
-| `oh-my-posh` | `Install-Module oh-my-posh` | Shell prompt themes |
+| `oh-my-posh` | `winget install JanDeDobbeleer.OhMyPosh` | Shell prompt themes |
 | `Terminal-Icons` | `Install-Module Terminal-Icons` | File icons in terminal |
 | `PSFzf` | `Install-Module PSFzf` | Fuzzy-finder integration |

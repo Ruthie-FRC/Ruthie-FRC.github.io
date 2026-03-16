@@ -50,6 +50,14 @@
 
     [:octicons-arrow-right-24: See examples](examples.md)
 
+-   :material-source-pull:{ .lg .middle } **Contributing**
+
+    ---
+
+    Fix a typo, improve an example, or write a new guide. All contributions are welcome.
+
+    [:octicons-arrow-right-24: How to contribute](contributing.md)
+
 </div>
 
 ---
@@ -101,6 +109,7 @@ Get-Service | Where-Object Status -eq Running |
 | **Writing Your Own Commands** | Functions, advanced functions, modules, help, PSGallery publishing |
 | **Command Reference** | Full A-Z cmdlet listing with syntax and examples |
 | **Examples & Recipes** | Complete, copy-pasteable scripts for real tasks |
+| **Contributing** | How to fix, improve, or add content to this encyclopedia |
 
 ---
 

@@ -73,7 +73,7 @@ Import-Csv .\data.csv   # preferred for files
 Converts a JSON string to a PowerShell object.
 ```powershell
 '{"name":"Alice","age":30}' | ConvertFrom-Json
-(Invoke-RestMethod https://api.github.com/users/octocat) | ConvertFrom-Json
+Invoke-RestMethod https://api.github.com/users/octocat   # already returns a parsed object
 ```
 
 ### ConvertTo-Csv

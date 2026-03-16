@@ -26,7 +26,7 @@ This object model makes PowerShell uniquely powerful for scripting, data manipul
 
 | | Windows PowerShell | PowerShell 7+ |
 |---|---|---|
-| **Runtime** | .NET Framework | .NET 6 / 7 / 8 |
+| **Runtime** | .NET Framework | .NET 8 / 9 |
 | **Platforms** | Windows only | Windows, macOS, Linux |
 | **Version** | 5.1 (final) | 7.x (actively updated) |
 | **Executable** | `powershell.exe` | `pwsh.exe` |
