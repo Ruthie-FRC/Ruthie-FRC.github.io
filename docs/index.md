@@ -58,6 +58,14 @@
 
     [:octicons-arrow-right-24: How to contribute](contributing.md)
 
+-   :octicons-issue-opened-16:{ .lg .middle } **Suggest a Change**
+
+    ---
+
+    Found an error, missing cmdlet, or have an idea for a new topic? Open an issue — no coding required.
+
+    [:octicons-arrow-right-24: Open an issue](https://github.com/Ruthie-FRC/Powershell-Commands/issues/new/choose)
+
 </div>
 
 ---
@@ -110,6 +118,7 @@ Get-Service | Where-Object Status -eq Running |
 | **Command Reference** | Full A-Z cmdlet listing with syntax and examples |
 | **Examples & Recipes** | Complete, copy-pasteable scripts for real tasks |
 | **Contributing** | How to fix, improve, or add content to this encyclopedia |
+| **Suggest a Change** | Open a GitHub issue to report errors or request new content |
 
 ---
 

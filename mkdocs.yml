@@ -9,6 +9,7 @@ edit_uri: edit/main/docs/
 
 theme:
   name: material
+  custom_dir: overrides
   palette:
     - scheme: default
       primary: custom
@@ -32,12 +33,15 @@ theme:
     - navigation.instant
     - navigation.tracking
     - navigation.indexes
+    - navigation.footer
     - navigation.top
     - search.highlight
     - search.suggest
     - search.share
     - content.code.copy
     - content.code.annotate
+    - content.action.edit
+    - content.action.view
     - toc.follow
 
 extra_css:
@@ -73,6 +77,10 @@ extra:
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/Ruthie-FRC/Powershell-Commands
+      name: Source code on GitHub
+    - icon: octicons/issue-opened-16
+      link: https://github.com/Ruthie-FRC/Powershell-Commands/issues
+      name: Open an issue or suggestion
   analytics:
     feedback:
       title: Was this page helpful?
@@ -85,6 +93,10 @@ extra:
           name: This page could be improved
           data: 0
           note: Thanks for your feedback!
+
+copyright: >-
+  Copyright &copy; 2025 Ruthie-FRC &mdash;
+  <a href="https://github.com/Ruthie-FRC/Powershell-Commands/issues">suggest a change or report an issue</a>
 
 nav:
   - Home: index.md
