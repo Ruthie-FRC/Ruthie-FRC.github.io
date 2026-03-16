@@ -2,7 +2,7 @@
 
 Thank you for your interest in improving the PowerShell Command Encyclopedia! Contributions of all sizes are welcome — from fixing a typo to adding an entirely new guide.
 
-!!! tip "Just want to make a quick suggestion?"
+Just want to make a quick suggestion?
     You don't need to edit any files. **[Open an issue on GitHub](https://github.com/Ruthie-FRC/Powershell-Commands/issues/new/choose)** to report an error, suggest a new topic, or request a change. It takes less than a minute.
 
     [:octicons-issue-opened-16: Open an issue](https://github.com/Ruthie-FRC/Powershell-Commands/issues/new/choose){ .md-button .md-button--primary }
