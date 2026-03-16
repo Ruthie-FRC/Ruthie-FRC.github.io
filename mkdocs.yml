@@ -131,6 +131,13 @@ nav:
       - Script Modules: authoring/script-modules.md
       - Comment-Based Help: authoring/comment-based-help.md
       - Publishing to PSGallery: authoring/psgallery.md
+  - FRC Robotics:
+      - Overview: frc/index.md
+      - WPILib & GradleRIO: frc/wpilib-dev.md
+      - roboRIO Utilities: frc/roborio.md
+      - Robot Networking: frc/networking.md
+      - Troubleshooting: frc/troubleshooting.md
+      - FrcTools Module: frc/frctools.md
   - Command Reference: command-reference.md
   - Examples & Recipes: examples.md
   - Contributing: contributing.md
