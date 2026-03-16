@@ -93,7 +93,7 @@ To use a **development (snapshot) build** of WPILib, add the development Maven r
 
 ## Running Common Gradle Tasks via Helper Function
 
-The `FrcTools` module (see [FRC home page](index.md#reusable-frc-module)) includes `Invoke-WpilibGradle`, which wraps `.\gradlew` with friendlier error output:
+The `FrcTools` module (see [FrcTools module page](frctools.md)) includes `Invoke-WpilibGradle`, which wraps `.\gradlew` with friendlier error output:
 
 ```powershell
 Import-Module .\scripts\frc\FrcTools.psm1

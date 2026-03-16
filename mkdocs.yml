@@ -137,6 +137,7 @@ nav:
       - roboRIO Utilities: frc/roborio.md
       - Robot Networking: frc/networking.md
       - Troubleshooting: frc/troubleshooting.md
+      - FrcTools Module: frc/frctools.md
   - Command Reference: command-reference.md
   - Examples & Recipes: examples.md
   - Contributing: contributing.md
