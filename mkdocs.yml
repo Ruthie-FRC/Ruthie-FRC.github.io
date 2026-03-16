@@ -31,8 +31,6 @@ theme:
   features:
     - navigation.instant
     - navigation.tracking
-    - navigation.sections
-    - navigation.expand
     - navigation.indexes
     - navigation.top
     - search.highlight
