@@ -58,14 +58,6 @@
 
     [:octicons-arrow-right-24: How to contribute](contributing.md)
 
--   :material-robot:{ .lg .middle } **FRC Robotics**
-
-    ---
-
-    PowerShell helpers for FRC teams: GradleRIO builds, roboRIO SSH/SCP, network checks, and troubleshooting.
-
-    [:octicons-arrow-right-24: FRC section](frc/index.md)
-
 -   :octicons-issue-opened-16:{ .lg .middle } **Suggest a Change**
 
     ---
@@ -125,7 +117,6 @@ Get-Service | Where-Object Status -eq Running |
 | **Writing Your Own Commands** | Functions, advanced functions, modules, help, PSGallery publishing |
 | **Command Reference** | Full A-Z cmdlet listing with syntax and examples |
 | **Examples & Recipes** | Complete, copy-pasteable scripts for real tasks |
-| **FRC Robotics** | PowerShell for FRC teams: GradleRIO builds, roboRIO SSH/SCP, networking, troubleshooting |
 | **Contributing** | How to fix, improve, or add content to this encyclopedia |
 | **Suggest a Change** | Open a GitHub issue to report errors or request new content |
 
