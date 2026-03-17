@@ -42,6 +42,14 @@
 
     [:octicons-arrow-right-24: Open reference](command-reference.md)
 
+-   :material-table-search:{ .lg .middle } **Command Lookup by Function**
+
+    ---
+
+    Don't know the command name? Browse by category — filesystem, networking, processes, and more.
+
+    [:octicons-arrow-right-24: Browse by function](command-lookup.md)
+
 -   :material-flask:{ .lg .middle } **Examples & Recipes**
 
     ---
@@ -116,6 +124,7 @@ Get-Service | Where-Object Status -eq Running |
 | **Guides** | Hands-on walkthroughs by topic (filesystem, networking, processes, etc.) |
 | **Writing Your Own Commands** | Functions, advanced functions, modules, help, PSGallery publishing |
 | **Command Reference** | Full A-Z cmdlet listing with syntax and examples |
+| **Command Lookup by Function** | Find any cmdlet by what it does — browse by category (filesystem, networking, processes, and more) |
 | **Examples & Recipes** | Complete, copy-pasteable scripts for real tasks |
 | **Contributing** | How to fix, improve, or add content to this encyclopedia |
 | **Suggest a Change** | Open a GitHub issue to report errors or request new content |

@@ -30,6 +30,7 @@ theme:
     logo: material/console
     repo: fontawesome/brands/github
   features:
+    - announce.dismiss
     - navigation.instant
     - navigation.tracking
     - navigation.indexes
@@ -132,5 +133,6 @@ nav:
       - Comment-Based Help: authoring/comment-based-help.md
       - Publishing to PSGallery: authoring/psgallery.md
   - Command Reference: command-reference.md
+  - Command Lookup by Function: command-lookup.md
   - Examples & Recipes: examples.md
   - Contributing: contributing.md
